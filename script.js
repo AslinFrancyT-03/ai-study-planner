@@ -957,7 +957,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showTypingIndicator();
 
         try {
-            const response = await fetch('https://ai-study-planner-bmku.onrender.com', {
+            const response = await fetch('ai-study-planner-production-c8f4.up.railway.app', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
