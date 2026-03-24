@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSc Data Sci OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-network-wired text-primary"></i>
+                <span>DataSci OS</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-target="dashboard"><i class="fa-solid fa-chart-line"></i>
+                    Dashboard</a>
+                <a href="#" class="nav-item" data-target="profile"><i class="fa-solid fa-user-astronaut"></i> Profile &
+                    Skills</a>
+                <a href="#" class="nav-item" data-target="study-plan"><i class="fa-solid fa-route"></i> Study Plan</a>
+                <a href="#" class="nav-item" data-target="projects"><i class="fa-solid fa-laptop-code"></i> Projects</a>
+                <a href="#" class="nav-item" data-target="internships"><i class="fa-solid fa-briefcase"></i>
+                    Internships</a>
+                <a href="#" class="nav-item" data-target="resume"><i class="fa-solid fa-file-contract"></i> Resume
+                    Builder</a>
+                <a href="#" class="nav-item" data-target="knowledge"><i class="fa-solid fa-book-open"></i> Knowledge
+                    Base</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-mini">
+                    <img src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff" alt="User">
+                    <div>
+                        <p class="user-name">Guest User</p>
+                        <p class="user-role text-muted text-sm">Beginner</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" placeholder="Search skills, projects...">
+                    </div>
+                    <button class="btn btn-icon"><i class="fa-solid fa-bell"></i></button>
+                    <img src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff" alt="Profile"
+                        class="avatar header-avatar nav-link" data-target="profile" style="cursor: pointer;">
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div id="toastNotification" class="toast"></div>
+                <!-- 1. Dashboard -->
+                <section id="dashboard" class="section active fade-in">
+                    <div class="grid-cards">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-blue-light text-primary"><i class="fa-solid fa-brain"></i></div>
+                            <div class="stat-details">
+                                <p class="stat-label">Overall Skill Mastery</p>
+                                <h3 class="stat-value" id="overall-skill-val">32%</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-green-light text-success"><i class="fa-solid fa-check-double"></i>
+                            </div>
+                            <div class="stat-details">
+                                <p class="stat-label">Projects Completed</p>
+                                <h3 class="stat-value" id="projects-stat">0 / 5</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-purple-light text-purple"><i
+                                    class="fa-solid fa-hourglass-half"></i></div>
+                            <div class="stat-details">
+                                <p class="stat-label">Next Milestone</p>
+                                <h3 class="stat-value text-sm mt-1">Master Pandas & EDA</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-grid mt-4">
+                        <div class="card chart-container">
+                            <h3 class="card-title">Skill Gap Analyzer</h3>
+                            <p class="text-sm text-muted mb-4">You vs. Industry Standard</p>
+                            <div class="canvas-wrapper"><canvas id="radarChart"></canvas></div>
+                        </div>
+                        <div class="card chart-container">
+                            <h3 class="card-title">Completion Ratio</h3>
+                            <p class="text-sm text-muted mb-4">Mastered vs Pending Skills</p>
+                            <div class="canvas-wrapper"><canvas id="doughnutChart"></canvas></div>
+                        </div>
+                        <div class="card chart-container">
+                            <h3 class="card-title">Study Velocity</h3>
+                            <p class="text-sm text-muted mb-4">Learning hours this week</p>
+                            <div class="canvas-wrapper"><canvas id="barChart"></canvas></div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <h3 class="card-title">Recent Activity</h3>
+                        <div class="activity-feed" style="max-height: 150px; overflow: hidden;">
+                            <div class="activity-item">
+                                <div class="activity-dot bg-primary"></div>
+                                <p class="text-sm">Created MSc Data Science Profile</p>
+                                <span class="text-xs text-muted">Just now</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot bg-success"></div>
+                                <p class="text-sm">System initialized visual analytics layout</p>
+                                <span class="text-xs text-muted">1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Profile & Skills Tracker -->
+                <section id="profile" class="section fade-in">
+                    <div class="profile-grid">
+                        <div class="card">
+                            <h3 class="card-title">User Profile Editor</h3>
+                            <form id="profileForm" class="profile-form">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="nameInput" placeholder="e.g., Ada Lovelace" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Course Name</label>
+                                    <input type="text" id="courseInput" placeholder="e.g., MSc Data Science" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>College Name</label>
+                                    <input type="text" id="collegeInput" placeholder="e.g., Tech University" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Target Career Goal</label>
+                                    <input type="text" id="goalInput" placeholder="e.g., Senior Data Scientist"
+                                        value="Data Scientist">
+                                </div>
+                                <div class="form-group">
+                                    <label>Current Skill Level</label>
+                                    <select id="levelSelect">
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Advanced">Advanced</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Interests</label>
+                                    <div class="checkbox-group">
+                                        <label class="cb-label"><input type="checkbox" value="AI" checked> Artificial
+                                            Intelligence</label>
+                                        <label class="cb-label"><input type="checkbox" value="ML" checked> Machine
+                                            Learning</label>
+                                        <label class="cb-label"><input type="checkbox" value="Data Science" checked>
+                                            Data Science</label>
+                                        <label class="cb-label"><input type="checkbox" value="Data Eng"> Data
+                                            Engineering</label>
+                                        <label class="cb-label"><input type="checkbox" value="NLP"> NLP</label>
+                                        <label class="cb-label"><input type="checkbox" value="CV"> Computer
+                                            Vision</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Profile & Recalculate</button>
+                            </form>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="card-title">Skill Progress Tracker</h3>
+                            <p class="text-sm text-muted mb-3">Track your MSc level curriculum progress.</p>
+
+                            <div class="progress-bar-container mb-4">
+                                <div class="flex-between mb-1">
+                                    <span class="text-sm font-medium">Global Progress</span>
+                                    <span class="text-sm font-medium text-primary" id="progressText">33%</span>
+                                </div>
+                                <div class="progress-bg">
+                                    <div class="progress-fill" id="progressFill" style="width: 33%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="skills-list"></div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- 3. Smart Study Plan Generator -->
+                <section id="study-plan" class="section fade-in">
+                    <div class="card bg-gradient text-center"
+                        style="padding: 3rem 1.5rem; border-radius: 12px; margin-bottom: 2rem; color: white;">
+                        <h2 style="font-size: 1.75rem; font-weight: 700;">Intelligent Curriculum Engine</h2>
+                        <p style="opacity: 0.9; margin: 1rem auto 2rem; max-width: 600px; line-height: 1.5;">I will
+                            analyze your current skill gaps, interests, and target goal to synthesize a structurally
+                            optimized roadmap.</p>
+                        <button id="generatePlanBtn" class="btn btn-white"><i
+                                class="fa-solid fa-wand-magic-sparkles"></i> Synthesize Study Plan</button>
+                    </div>
+
+                    <div id="aiProcessingState" class="card hidden bg-purple-light"
+                        style="margin-bottom: 2rem; border-left: 4px solid var(--purple); background: #faf5ff;">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <i class="fa-solid fa-circle-notch fa-spin text-purple" style="font-size: 1.5rem;"></i>
+                            <div id="processingText"
+                                style="font-weight: 600; color: var(--text-main); font-size: 1.05rem;">Initializing
+                                neural core...</div>
+                        </div>
+                    </div>
+
+                    <div id="roadmapContainer" class="roadmap-container hidden">
+                        <div class="card bg-purple-light"
+                            style="border: 1px solid #ede9fe; margin-bottom: 2rem; padding: 1.5rem;">
+                            <h4 class="text-purple mb-2" style="font-weight: 700; font-size: 1.1rem;"><i
+                                    class="fa-solid fa-brain"></i> AI Strategic Reasoning</h4>
+                            <p id="aiReasoningText"
+                                style="line-height: 1.7; color: var(--text-main); font-style: italic; font-size: 0.95rem; margin: 0; min-height: 60px;">
+                            </p>
+                        </div>
+                        <h3 class="mb-4" style="font-size: 1.25rem;">Your Optimized Timeline</h3>
+                        <div class="timeline" id="timelineEl"></div>
+                    </div>
+
+                    <!-- START: Chatbot Integration -->
+                    <div class="study-chatbot-container mt-6">
+                        <div class="chat-header">
+                            <i class="fa-solid fa-robot"></i>
+                            <span>AI Study Mentor</span>
+                        </div>
+                        <div id="studyChatMessages" class="chat-messages">
+                            <div class="chat-msg bot-msg">Hi! I'm your AI Study Mentor. How can I help you with your
+                                data science journey today?</div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="studyChatInput" placeholder="Ask about roadmaps, projects...">
+                            <button id="studyChatSend" class="btn-chat-send">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- END: Chatbot Integration -->
+                </section>
+
+                <!-- 4. Project Recommendation Engine -->
+                <section id="projects" class="section fade-in">
+                    <div class="flex-between mb-4">
+                        <h2 class="card-title m-0" style="font-size: 1.5rem;">Project Recommendations</h2>
+                        <span class="badge badge-purple" style="font-size: 0.85rem;">AI Curated</span>
+                    </div>
+                    <p class="text-muted mb-6">5 real-world projects dynamically selected based on your profile.</p>
+                    <div class="projects-grid" id="projectsGrid"></div>
+                </section>
+
+                <!-- 5. Internship Recommendation -->
+                <section id="internships" class="section fade-in">
+                    <div class="flex-between mb-4">
+                        <h2 class="card-title m-0" style="font-size: 1.5rem;">Job Recommendations</h2>
+                        <span class="badge badge-success" style="font-size: 0.85rem;">Live Matches</span>
+                    </div>
+                    <p class="text-muted mb-6">Suggested roles based on your selected interests and skill gaps.</p>
+                    <div class="internships-list" id="internshipsList"></div>
+
+                    <h3 class="card-title mt-6 mb-4" style="font-size: 1.25rem;">Applied Internships</h3>
+                    <div class="internships-list" id="appliedInternshipsList"></div>
+                </section>
+
+                <!-- 6. Resume Builder -->
+                <section id="resume" class="section fade-in">
+                    <div class="flex-between mb-4">
+                        <h2 class="card-title m-0" style="font-size: 1.5rem;">Resume Optimizer</h2>
+                        <span class="badge badge-success" style="font-size: 0.85rem;">ATS Aligned</span>
+                    </div>
+                    <p class="text-muted mb-6">Compare your current skill profile against the requirements for a target
+                        role of <strong class="text-primary" id="resumeTargetRole">Data Scientist</strong>.</p>
+
+                    <div class="profile-grid">
+                        <div class="card" style="border-top: 4px solid var(--success);">
+                            <h3 class="card-title"><i class="fa-solid fa-circle-check text-success"></i> Spotlight
+                                Skills</h3>
+                            <p class="text-sm text-muted mb-4">Mastered skills that you should highlight prominently on
+                                your resume.</p>
+                            <div id="masteredSkillsList" class="flex-wrap gap-2"></div>
+                        </div>
+                        <div class="card" style="border-top: 4px solid var(--danger);">
+                            <h3 class="card-title"><i class="fa-solid fa-triangle-exclamation text-danger"></i> Missing
+                                Competencies</h3>
+                            <p class="text-sm text-muted mb-4">These critical skills are missing from your profile and
+                                may trigger ATS rejection.</p>
+                            <div id="missingSkillsList" class="flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                    <div class="card mt-4 bg-purple-light" style="border-color: #ede9fe;">
+                        <h3 class="card-title text-purple"><i class="fa-solid fa-wand-sparkles"></i> AI Generated
+                            Summary Statement</h3>
+                        <p id="resumeSummaryText" style="line-height: 1.6; font-style: italic; color: #4c1d95;"></p>
+                    </div>
+                </section>
+                
+                <!-- 7. Knowledge Base -->
+                <section id="knowledge" class="section fade-in">
+                    <div class="flex-between mb-4">
+                        <h2 class="card-title m-0" style="font-size: 1.5rem;">Knowledge Center</h2>
+                        <span class="badge badge-purple" style="font-size: 0.85rem;">RAG Enabled</span>
+                    </div>
+                    <p class="text-muted mb-6">Equip your AI mentor with custom study material, documents, and links.</p>
+                    
+                    <div class="profile-grid">
+                        <div class="card">
+                            <h3 class="card-title"><i class="fa-solid fa-link text-primary"></i> Add Study Link</h3>
+                            <p class="text-sm text-muted mb-4">Paste a URL (article, documentation) to scrape text.</p>
+                            <div class="form-group">
+                                <input type="url" id="linkInput" placeholder="https://example.com/study-guide" class="w-100" style="background: white; border: 1px solid #e2e8f0; padding: 0.75rem; border-radius: 8px;">
+                            </div>
+                            <button id="addLinkBtn" class="btn btn-primary w-100 mt-2">Process Link</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h3 class="card-title"><i class="fa-solid fa-file-pdf text-danger"></i> Upload Document</h3>
+                            <p class="text-sm text-muted mb-4">Upload a PDF textbook or study notes.</p>
+                            <div class="form-group">
+                                <input type="file" id="fileInput" accept=".pdf" class="w-100" style="background: white; border: 1px solid #e2e8f0; padding: 0.75rem; border-radius: 8px;">
+                            </div>
+                            <button id="uploadFileBtn" class="btn btn-danger w-100 mt-2">Upload & Index</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <h3 class="card-title"><i class="fa-solid fa-note-sticky text-warning"></i> Quick Notes</h3>
+                        <p class="text-sm text-muted mb-4">Add manual snippets of text to the knowledge base.</p>
+                        <div class="form-group">
+                            <input type="text" id="noteLabel" placeholder="Note Label (e.g., Python Quiz)" class="w-100 mb-2" style="background: white; border: 1px solid #e2e8f0; padding: 0.75rem; border-radius: 8px;">
+                            <textarea id="noteContent" rows="4" placeholder="Paste study text here..." class="w-100" style="background: white; border: 1px solid #e2e8f0; padding: 0.75rem; border-radius: 8px;"></textarea>
+                        </div>
+                        <button id="addNoteBtn" class="btn btn-warning w-100 mt-2">Save to Knowledge</button>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+    <!-- Job Detail Modal -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <div id="modalIcon" class="company-logo bg-primary-light text-primary"></div>
+                    <div>
+                        <h3 id="modalTitle" class="m-0" style="font-size: 1.25rem;">Job Title</h3>
+                        <p id="modalCompany" class="text-sm text-muted m-0">Company Name</p>
+                    </div>
+                </div>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body py-6">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-muted mb-2">Job Description</h4>
+                <p id="modalDescription" class="text-sm"
+                    style="line-height: 1.6; color: var(--text-main); font-weight: 500;"></p>
+
+                <h4 class="text-sm font-bold uppercase tracking-wider text-muted mt-6 mb-2">Key Requirements</h4>
+                <div id="modalRequirements" class="flex-wrap gap-2"></div>
+            </div>
+            <div class="modal-footer pt-4" style="border-top: 1px solid #f1f5f9;">
+                <button id="modalApplyBtn" class="btn btn-primary w-100 py-3"
+                    style="font-weight: 700; font-size: 1rem;">Apply on LinkedIn</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
